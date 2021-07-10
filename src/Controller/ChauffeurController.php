@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Chauffeur;
 use App\Form\ChauffeurType;
+use App\Repository\ChauffeurRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,6 +17,16 @@ class ChauffeurController extends AbstractController
     {
         return $this->render('chauffeur/index.html.twig', [
             'controller_name' => 'ChauffeurController',
+        ]);
+    }
+
+    #[Route('/home/client', name:'chauffeur_liste')]
+    public function client()
+    {
+        $tache = $this->getDoctrine()->getRepository(Chauffeur::class)->findAll();
+        
+        return $this->render('chauffeur/client.html.twig', [
+            "Liste" => $tache,
         ]);
     }
 
