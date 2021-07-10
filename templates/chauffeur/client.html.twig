@@ -1,8 +1,8 @@
 {% extends "base.html.twig" %}
-{% block title %}Liste des Chauffeurs{% endblock %}
+{% block title %}Liste des taches{% endblock %}
 
 {% block body %}
-<h1>Liste des Chauffeurs</h1>
+<h1>Liste des taches</h1>
 <p><a href="{{ path('chauffeur') }}">S'inscrire</a></p>
 {% for Liste in Liste %}
     <table>
@@ -16,13 +16,13 @@
             <th>Note</th>
         </thead>
         <tbody>
-            <td>{{ Chauffeur.id }}</td>
-            <td>{{ Chauffeur.nom }}</td>
-            <td>{{ Chauffeur.prenom }}</td>
-            <td>{{ Chauffeur.telephone }}</td>
-            <td>{{ Chauffeur.adresse }}</td>
-            <td>{{ Chauffeur.email }}</td>
-            <td>{{ Chauffeur.noteTotale }}</td>
+            <td>{{ tache.id }}</td>
+            <td>{{ tache.nom }}</td>
+            <td>{{ tache.prenom }}</td>
+            <td>{{ tache.telephone }}</td>
+            <td>{{ tache.adresse }}</td>
+            <td>{{ tache.email }}</td>
+            <td>{{ tache.noteTotale }}</td>
         </tbody>
     </table>
 {% endfor %}

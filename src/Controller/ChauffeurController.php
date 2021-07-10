@@ -20,30 +20,34 @@ class ChauffeurController extends AbstractController
         ]);
     }
 
-    #[Route('/home/client', name:'chauffeur_liste')]
+    #[Route('/Chauffeur/client', name:'chauffeur_liste')]
     public function client()
     {
         $tache = $this->getDoctrine()->getRepository(Chauffeur::class)->findAll();
-        
-        return $this->render('chauffeur/client.html.twig', [
+
+        return $this->render('Chauffeur/client.html.twig', [
             "Liste" => $tache,
         ]);
     }
+    
 
-    #[Route('/home', name:'chauffeur')]
-    public function create(Request $request): Response{
+    #[Route('/Chauffeur', name:'chauffeur')]
+    public function create(Request $request): Response
+{
+    $chauffeur = new Chauffeur();
+    $form = $this->createForm(ChauffeurType::class, $chauffeur);
+    $form->handleRequest($request);
 
-        $tache = new Chauffeur();
-        $form = $this->createform(ChauffeurType::class, $tache);
-
-        if($form->isSubmitted() && $form->isValid()){
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($tache);
-            $entityManager->flush();
-        }
-        return $this->render('chauffeur/home.html.twig', [
-            "titre" => "Veuillez Remplir le formulaire",
-            "form" => $form->createView(),
-        ]);
+    if($form->isSubmitted() && $form->isValid())
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($chauffeur);
+        $entityManager->flush();
     }
+
+    return $this->render("Chauffeur/chauffeur.html.twig", [
+        "form_title" => "S'inscrire",
+        "form" => $form->createView(),
+    ]);
+}
 }
