@@ -58,7 +58,7 @@ class Voiture
     private $materielDeSecours;
 
     /**
-     * @ORM\ManyToOne(targetEntity=chauffeur::class, inversedBy="voitures")
+     * @ORM\ManyToOne(targetEntity=Chauffeur::class, inversedBy="voitures")
      */
     private $chauffeur;
 

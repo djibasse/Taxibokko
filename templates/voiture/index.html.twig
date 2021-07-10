@@ -1,0 +1,55 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Liste des voitures
+    
+{% endblock %}
+
+{% block body %}
+    
+    <a href="{{ path('creation_voiture') }}">Ajouter une nouvelle voiture</a>
+                    
+
+
+    <h2> Listes des voitures</h2>
+    
+   <table class ='table'>
+    <thead>
+        
+         <tr>
+            <th>Id</th>
+            <th>Matricule</th>
+            <th>Marque</th>
+            <th>Model</th>
+            <th>Assurance</th>
+            <th>Visite Technique</th>
+            <th>Carte grise</th>
+            <th>Pneu de secour</th>
+            <th>Materiel de secour</th>
+            <th>Chauffeur</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for voiture in liste %} 
+        <tr>
+            <td>{{ voiture.id }}</td>
+            <td>{{ voiture.matricule }}</td>
+            <td>{{ voiture.marque }}</td>
+            <td>{{ voiture.model }}</td>
+            <td>{{ voiture.assurance }}</td>
+            <td>{{ voiture.visiteTechnique }}</td>
+            <td>{{ voiture.carteGrise }}</td>
+            <td>{{ voiture.pneuDeSecour }}</td>
+            <td>{{ voiture.materielDeSecours }}</td>
+            <td>{{ voiture.chauffeur }}</td>
+            <td>
+                <a href="{{ path('update', {'id': voiture.id}) }}">Modifier</a>
+                <a href="{{ path('delete', {'id': voiture.id}) }}">Supprimer</a>
+            </td> 
+        </tr>
+        
+    {% endfor %}
+    </tbody>
+    </table>
+
+{% endblock %} 
