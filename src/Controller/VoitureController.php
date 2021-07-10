@@ -36,17 +36,17 @@ class VoitureController extends AbstractController
     //executer la reque de l'utilisateur
     $form->handleRequest($request);
 
-    if($form->isSubmitted()&&$form->isValid()){
+    if($form->isSubmitted() && $form->isValid()){
      
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($voiture);
-        $entityManager-> flush();
+        $entityManager->flush();
 
         Return $this->redirectToRoute('voiture');
     }
 
     return $this->render ("voiture/create.html.twig",[
-        'formulaire'=> $form->createView()
+        'formulaire' => $form->createView()
         ]);
  }
 
@@ -77,11 +77,11 @@ public function update(Request $request , $id)
    
    
    return $this->render ("voiture/update.html.twig",[
-       'formulaire'=> $form->createView()
+       'formulaire' => $form->createView()
        ]);
 
    }
-   #[Route('/{id}', name: 'delete')]
+   #[Route('voitutures/{id}/delete', name: 'delete')]
 
    public function delete($id){
        $voiture = $this->getDoctrine()->getRepository(Voiture::class)->find($id);

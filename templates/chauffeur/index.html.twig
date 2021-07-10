@@ -1,22 +1,32 @@
 {% extends "base.html.twig" %}
-{% block title %}Liste des taches{% endblock %}
+
+{% block title %} Liste des chauffeurs
+    
+{% endblock %}
 
 {% block body %}
-<h1>Liste des taches</h1>
-<p><a href="{{ path('chauffeur') }}">S'inscrire</a></p>
-{% for Liste in Liste %}
-    <table>
-        <thead>
-            <th>ID</th>
+    
+    <a href="{{ path('creation_chauffeur') }}">Ajouter une nouvelle chauffeur</a>
+                    
+
+
+    <h2> Listes des chauffeurs</h2>
+    
+   <table class ='table'>
+    <thead>
+        
+         <tr>
+            <th>Id</th>
             <th>Nom</th>
-            <th>Penom</th>
-            <th>telephone</th>
-            <th>adresse</th>
-            <th>email</th>
-            <th>Note</th>
-        </thead>
-        <tbody>
-           {% for chauffeur in liste %} 
+            <th>Prenom</th>
+            <th>Telephone</th>
+            <th>Adresse</th>
+            <td>Email</td>
+            <td>noteTotale</td>
+        </tr>
+    </thead>
+    <tbody>
+    {% for chauffeur in liste %} 
         <tr>
             <td>{{ chauffeur.id }}</td>
             <td>{{ chauffeur.nom }}</td>
@@ -24,11 +34,14 @@
             <td>{{ chauffeur.telephone }}</td>
             <td>{{ chauffeur.adresse }}</td>
             <td>{{ chauffeur.email }}</td>
-            <td>{{ chauffeur.noteTotale}}</td>
+            <td>{{ chauffeur.noteTotale }}</td>
+            <td>
                 <a href="{{ path('update', {'id': chauffeur.id}) }}">Modifier</a>
                 <a href="{{ path('delete', {'id': chauffeur.id}) }}">Supprimer</a>
             </td> 
         </tr>
+    {% endfor %}
+    </tbody>
     </table>
-{% endfor %}
-{% endblock %}
+
+{% endblock %} 
