@@ -19,8 +19,9 @@ class ChauffeurController extends AbstractController
         ]);
     }
 
-    #[Route('/home', name:'chauffeur')]
-    public function create(Request $request): Response{
+    #[Route('/chauffeur', name:'chauffeur')]
+    public function create(Request $request): Response
+    {
 
         $tache = new Chauffeur();
         $form = $this->createform(ChauffeurType::class, $tache);
@@ -30,7 +31,7 @@ class ChauffeurController extends AbstractController
             $entityManager->persist($tache);
             $entityManager->flush();
         }
-        return $this->render('chauffeur/home.html.twig', [
+        return $this->render('chauffeur/chauffeur.html.twig', [
             "titre" => "Veuillez Remplir le formulaire",
             "form" => $form->createView(),
         ]);
