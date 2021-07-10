@@ -20,6 +20,7 @@ class ChauffeurController extends AbstractController
         ]);
     }
 
+<<<<<<< HEAD
     {
         #[Route('/chauffeur', name: 'chauffeur')]
         public function index(ChauffeurRepository $chauffeurRepository): Response
@@ -46,12 +47,23 @@ class ChauffeurController extends AbstractController
     
         if($form->isSubmitted()&&$form->isValid()){
          
+=======
+    #[Route('/chauffeur', name:'chauffeur')]
+    public function create(Request $request): Response
+    {
+
+        $tache = new Chauffeur();
+        $form = $this->createform(ChauffeurType::class, $tache);
+
+        if($form->isSubmitted() && $form->isValid()){
+>>>>>>> crud2
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($chauffeur);
             $entityManager-> flush();
     
             Return $this->redirectToRoute('chauffeur');
         }
+<<<<<<< HEAD
     
         return $this->render ("chauffeur/create.html.twig",[
             'formulaire'=> $form->createView()
@@ -101,5 +113,11 @@ class ChauffeurController extends AbstractController
        }   
     
     
+=======
+        return $this->render('chauffeur/chauffeur.html.twig', [
+            "titre" => "Veuillez Remplir le formulaire",
+            "form" => $form->createView(),
+        ]);
+>>>>>>> crud2
     }
     
