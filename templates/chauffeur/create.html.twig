@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block title%}
+
+     Inscrit toi!
+
+{% endblock title%}
+
+{% block body %}
+    <h2> Inscription</h2>
+    
+    
+    {{form_start(formulaire)}}
+    {{form_widget(formulaire)}}    
+        <button type="submit" > S'inscrire</button>
+    {{form_end(formulaire)}}
+    
+    
+
+{% endblock %}

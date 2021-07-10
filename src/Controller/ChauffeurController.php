@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ChauffeurController extends AbstractController
 {
     #[Route('/chauffeur', name: 'chauffeur')]
+
     public function index(): Response
     {
         return $this->render('chauffeur/index.html.twig', [
@@ -20,65 +21,49 @@ class ChauffeurController extends AbstractController
         ]);
     }
 
-<<<<<<< HEAD
-    {
         #[Route('/chauffeur', name: 'chauffeur')]
-        public function index(ChauffeurRepository $chauffeurRepository): Response
+        
+        public function liste(ChauffeurRepository $chauffeurRepository): Response
         {
             $liste = $chauffeurRepository-> findAll();
-    
+
             return $this->render('chauffeur/index.html.twig', [
                 'liste' => $liste
             ]);
         }
+
+
     
-    
-    /**
-     * @route("/chauffeur/create" , name = "creation_chauffeur")
-     */
-     
+    #[Route('/chauffeur/create', name: 'creation_chauffeur')]
      public function create( Request $request): Response{
          $chauffeur = new Chauffeur();
-    
+
          $form = $this->createForm(ChauffeurType::class, $chauffeur);
-    
+
         //executer la reque de l'utilisateur
         $form->handleRequest($request);
-    
+
         if($form->isSubmitted()&&$form->isValid()){
-         
-=======
-    #[Route('/chauffeur', name:'chauffeur')]
-    public function create(Request $request): Response
-    {
 
-        $tache = new Chauffeur();
-        $form = $this->createform(ChauffeurType::class, $tache);
-
-        if($form->isSubmitted() && $form->isValid()){
->>>>>>> crud2
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($chauffeur);
             $entityManager-> flush();
-    
+
             Return $this->redirectToRoute('chauffeur');
         }
-<<<<<<< HEAD
-    
-        return $this->render ("chauffeur/create.html.twig",[
+
+        return $this->render ("chauffeur/index.html.twig",[
             'formulaire'=> $form->createView()
             ]);
      }
-    
-        
-    /**
-     * @route("/{id}/update" , name = "update")
-     */
-    
-    
+
+
+
+
+    #[Route('/{id}/update', name: 'update')]
     public function update(Request $request , $id) 
     {
-    
+
        $chauffeur = $this->getDoctrine()->getRepository(Chauffeur::class)->find($id);
        
        $form = $this->createForm(ChauffeurType::class, $chauffeur);
@@ -103,7 +88,8 @@ class ChauffeurController extends AbstractController
        }
        #[Route('/{id}', name: 'delete')]
     
-       public function delete($id){
+       public function delete($id)
+       {
            $chauffeur = $this->getDoctrine()->getRepository(Chauffeur::class)->find($id);
            $entityManager = $this->getDoctrine()->getManager();
            $entityManager->remove($chauffeur);
@@ -112,12 +98,6 @@ class ChauffeurController extends AbstractController
            return  $this->redirectToRoute('chauffeur');
        }   
     
-    
-=======
-        return $this->render('chauffeur/chauffeur.html.twig', [
-            "titre" => "Veuillez Remplir le formulaire",
-            "form" => $form->createView(),
-        ]);
->>>>>>> crud2
+
     }
     
