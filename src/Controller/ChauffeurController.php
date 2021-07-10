@@ -20,34 +20,86 @@ class ChauffeurController extends AbstractController
         ]);
     }
 
-    #[Route('/Chauffeur/client', name:'chauffeur_liste')]
-    public function client()
     {
-        $tache = $this->getDoctrine()->getRepository(Chauffeur::class)->findAll();
-
-        return $this->render('Chauffeur/client.html.twig', [
-            "Liste" => $tache,
-        ]);
+        #[Route('/chauffeur', name: 'chauffeur')]
+        public function index(ChauffeurRepository $chauffeurRepository): Response
+        {
+            $liste = $chauffeurRepository-> findAll();
+    
+            return $this->render('chauffeur/index.html.twig', [
+                'liste' => $liste
+            ]);
+        }
+    
+    
+    /**
+     * @route("/chauffeur/create" , name = "creation_chauffeur")
+     */
+     
+     public function create( Request $request): Response{
+         $chauffeur = new Chauffeur();
+    
+         $form = $this->createForm(ChauffeurType::class, $chauffeur);
+    
+        //executer la reque de l'utilisateur
+        $form->handleRequest($request);
+    
+        if($form->isSubmitted()&&$form->isValid()){
+         
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($chauffeur);
+            $entityManager-> flush();
+    
+            Return $this->redirectToRoute('chauffeur');
+        }
+    
+        return $this->render ("chauffeur/create.html.twig",[
+            'formulaire'=> $form->createView()
+            ]);
+     }
+    
+        
+    /**
+     * @route("/{id}/update" , name = "update")
+     */
+    
+    
+    public function update(Request $request , $id) 
+    {
+    
+       $chauffeur = $this->getDoctrine()->getRepository(Chauffeur::class)->find($id);
+       
+       $form = $this->createForm(ChauffeurType::class, $chauffeur);
+    
+       //executer la requete de l'utilisateur
+       $form->handleRequest($request);
+       if($form->isSubmitted() && $form->isValid()){
+    
+           //On va utilser doctrine pour enregister notre chauffeur
+           $entityManager = $this->getDoctrine()->getManager();
+           $entityManager->persist($chauffeur);
+           $entityManager->flush();
+    
+           return  $this->redirectToRoute('chauffeur');
+       }
+       
+       
+       return $this->render ("chauffeur/update.html.twig",[
+           'formulaire'=> $form->createView()
+           ]);
+    
+       }
+       #[Route('/{id}', name: 'delete')]
+    
+       public function delete($id){
+           $chauffeur = $this->getDoctrine()->getRepository(Chauffeur::class)->find($id);
+           $entityManager = $this->getDoctrine()->getManager();
+           $entityManager->remove($chauffeur);
+           $entityManager->flush();
+    
+           return  $this->redirectToRoute('chauffeur');
+       }   
+    
+    
     }
     
-
-    #[Route('/Chauffeur', name:'chauffeur')]
-    public function create(Request $request): Response
-{
-    $chauffeur = new Chauffeur();
-    $form = $this->createForm(ChauffeurType::class, $chauffeur);
-    $form->handleRequest($request);
-
-    if($form->isSubmitted() && $form->isValid())
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($chauffeur);
-        $entityManager->flush();
-    }
-
-    return $this->render("Chauffeur/chauffeur.html.twig", [
-        "form_title" => "S'inscrire",
-        "form" => $form->createView(),
-    ]);
-}
-}
