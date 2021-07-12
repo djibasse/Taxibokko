@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Voiture;
-use App\Entity\Chauffeur;
 use App\Form\VoitureType;
 use App\Repository\VoitureRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +29,6 @@ class VoitureController extends AbstractController
  
  public function create( Request $request): Response{
      $voiture = new Voiture();
-
      $form = $this->createForm(VoitureType::class, $voiture);
 
     //executer la reque de l'utilisateur
@@ -52,7 +50,7 @@ class VoitureController extends AbstractController
 
     
 /**
- * @route("/{id}/update" , name = "update")
+ * @route("voiture/{id}/update" , name = "update")  
  */
 
 
@@ -81,7 +79,9 @@ public function update(Request $request , $id)
        ]);
 
    }
-   #[Route('voitutures/{id}/delete', name: 'delete')]
+   /**
+    * @Route('/voiture/{id}')
+    */
 
    public function delete($id){
        $voiture = $this->getDoctrine()->getRepository(Voiture::class)->find($id);

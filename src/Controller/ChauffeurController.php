@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ChauffeurController extends AbstractController
 {
-    #[Route('/chauffeur', name: 'chauffeur')]
+    #[Route('/chauffeurs', name: 'chauffeur')]
     public function index(chauffeurRepository $chauffeurRepository): Response
     {
         $liste = $chauffeurRepository-> findAll();
@@ -24,7 +24,7 @@ class ChauffeurController extends AbstractController
 
 
 
- #[Route('/chauffeur/create', name:'creation_chauffeur')]
+ #[Route('/chauffeurs/create', name:'creation_chauffeur')]
  public function create( Request $request): Response{
      $chauffeur = new Chauffeur();
 
@@ -48,7 +48,7 @@ class ChauffeurController extends AbstractController
  }
 
 
-#[Route('/chauffeur/update', name:'update')]
+#[Route('/chauffeurs/{id}/update', name:'update_chauffeur')]
 public function update(Request $request , $id) 
 {
 
@@ -56,7 +56,6 @@ public function update(Request $request , $id)
    
    $form = $this->createForm(ChauffeurType::class, $chauffeur);
 
-   
    $form->handleRequest($request);
 
    if($form->isSubmitted() && $form->isValid()){
@@ -67,14 +66,14 @@ public function update(Request $request , $id)
 
        return  $this->redirectToRoute('chauffeur');
    }
-   
-   
-   return $this->render ("chauffeur$chauffeur/update.html.twig",[
+
+
+   return $this->render ("chauffeur/update.html.twig",[
        'formulaire' => $form->createView()
        ]);
 
    }
-   #[Route('chauffeur/{id}/delete', name: 'delete')]
+   #[Route('chauffeur/{id}', name: 'delete_chauffeur')]
 
    public function delete($id){
        $chauffeur = $this->getDoctrine()->getRepository(Chauffeur::class)->find($id);
